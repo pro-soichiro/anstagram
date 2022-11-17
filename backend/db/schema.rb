@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_15_122911) do
+ActiveRecord::Schema.define(version: 2022_11_17_000127) do
 
   create_table "birthplaces", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "prefecture_id", null: false
@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(version: 2022_11_15_122911) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "user_departments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "department_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["department_id"], name: "index_user_departments_on_department_id"
+    t.index ["user_id"], name: "index_user_departments_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "last_name", null: false
     t.string "first_name", null: false
@@ -43,7 +52,6 @@ ActiveRecord::Schema.define(version: 2022_11_15_122911) do
     t.string "nickname", null: false
     t.integer "gender", null: false
     t.date "birthday", null: false
-    t.bigint "department_id", null: false
     t.date "date_of_join", null: false
     t.string "hobby"
     t.string "skill"
@@ -52,10 +60,10 @@ ActiveRecord::Schema.define(version: 2022_11_15_122911) do
     t.text "memo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["department_id"], name: "index_users_on_department_id"
   end
 
   add_foreign_key "birthplaces", "prefectures"
   add_foreign_key "birthplaces", "users"
-  add_foreign_key "users", "departments"
+  add_foreign_key "user_departments", "departments"
+  add_foreign_key "user_departments", "users"
 end
