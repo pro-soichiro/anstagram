@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchUser } from "../apis/users";
+import { fetchPrefectureUsers } from "../apis/users/prefectures";
 
-export const User = () => {
+export const PrefectureUsers = () => {
   const { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
-    fetchUser(id)
+    fetchPrefectureUsers(id)
       .then((data) => {
         console.log(data);
       })
@@ -15,11 +14,9 @@ export const User = () => {
         console.error(e);
       });
   }, []);
-
   return (
     <>
-      <h1>社員詳細</h1>
-      <h2>間宮漱一朗</h2>
+      <h1>神奈川県出身の社員一覧</h1>
     </>
   );
 };

@@ -2,7 +2,9 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Top } from "./containers/Top";
 import { Users } from "./containers/Users";
-// import { User } from "./containers/User";
+import { PrefectureUsers } from "./containers/PrefectureUsers";
+import { DepartmentUsers } from "./containers/DepartmentUsers";
+import { User } from "./containers/User";
 import { Prefectures } from "./containers/Prefectures";
 import { Departments } from "./containers/Departments";
 
@@ -11,21 +13,21 @@ function App() {
     <BrowserRouter>
       <ul>
         <li>
-          <Link to="/users">Users</Link>
+          <Link to="/users">社員一覧</Link>
         </li>
         <li>
-          <Link to="/prefectures">Prefectures</Link>
+          <Link to="/prefectures">都道府県別</Link>
         </li>
         <li>
-          <Link to="/departments">Departments</Link>
+          <Link to="/departments">部署別</Link>
         </li>
       </ul>
       <Routes>
         <Route path="/" element={<Top />} />
         <Route path="/users" element={<Users />} />
-        {/* <Route path="/users" element={<Users />} >
-          <Route path=":id" element={<User />} />
-        </Route> */}
+        <Route path="/users/:id" element={<User />} />
+        <Route path="/users/prefectures/:id" element={<PrefectureUsers />} />
+        <Route path="/users/departments/:id" element={<DepartmentUsers />} />
         <Route path="/prefectures" element={<Prefectures />} />
         <Route path="/departments" element={<Departments />} />
       </Routes>

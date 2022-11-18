@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchUser } from "../apis/users";
+import { fetchDepartmentUsers } from "../apis/users/departments";
 
-export const User = () => {
+export const DepartmentUsers = () => {
   const { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
-    fetchUser(id)
+    fetchDepartmentUsers(id)
       .then((data) => {
         console.log(data);
       })
@@ -15,11 +14,9 @@ export const User = () => {
         console.error(e);
       });
   }, []);
-
   return (
     <>
-      <h1>社員詳細</h1>
-      <h2>間宮漱一朗</h2>
+      <h1>プロダクト本部 開発の社員一覧</h1>
     </>
   );
 };
