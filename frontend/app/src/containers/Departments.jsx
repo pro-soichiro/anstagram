@@ -1,12 +1,30 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useReducer } from "react";
 import { fetchDepartments } from "../apis/departments";
 
+// reducer
+import {
+  initialState,
+  departmentsActionTypes,
+  departmentsReducer,
+} from "../reducers/departments";
+
+// constants
+import { REQUEST_STATE } from "../constants";
+
 export const Departments = () => {
+  const [state, dispatch] = useReducer(departmentsReducer, initialState);
+
   useEffect(() => {
+    dispatch({ type: departmentsActionTypes.FETCHING });
+
     fetchDepartments()
       .then((data) => {
-        console.log(data);
+        dispatch({
+          type: departmentsActionTypes.FETCH_SUCCESS,
+          payload: {
+            departments: data.departments,
+          },
+        });
       })
       .catch((e) => {
         console.error(e);
@@ -15,11 +33,15 @@ export const Departments = () => {
   return (
     <>
       <h1>部署一覧</h1>
-      <ul>
-        <li>
-          <Link to="/users/departments/10">プロダクト本部 開発</Link>
-        </li>
-      </ul>
+      {state.fetchState === REQUEST_STATE.LOADING ? (
+        <p>LOADING...</p>
+      ) : (
+        <ul>
+          {state.departments.map((department) => (
+            <li key={department.id}>{department.name}</li>
+          ))}
+        </ul>
+      )}
     </>
   );
 };
