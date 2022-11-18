@@ -15,8 +15,6 @@ import { REQUEST_STATE } from "../constants";
 export const Users = () => {
   const [state, dispatch] = useReducer(usersReducer, initialState);
 
-  console.log(state.users);
-
   useEffect(() => {
     dispatch({ type: usersActionTypes.FETCHING });
 
