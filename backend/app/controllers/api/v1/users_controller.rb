@@ -3,7 +3,13 @@ module Api
     class UsersController < ApplicationController
 
       def index
-        users = User.all
+        users = User.all.map do |user|
+          {
+            id: user.id,
+            full_name: user.full_name,
+            full_name_kana: user.full_name_kana
+          }
+        end
 
         render json: {
           users: users
