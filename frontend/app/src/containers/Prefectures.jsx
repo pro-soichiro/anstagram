@@ -1,12 +1,30 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useReducer } from "react";
 import { fetchPrefectures } from "../apis/prefectures";
 
+// reducers
+import {
+  initialState,
+  prefecturesActionTypes,
+  prefecturesReducer,
+} from "../reducers/prefectures";
+
+// constants
+import { REQUEST_STATE } from "../constants";
+
 export const Prefectures = () => {
+  const [state, dispatch] = useReducer(prefecturesReducer, initialState);
+
   useEffect(() => {
+    dispatch({ type: prefecturesActionTypes.FETCHING });
+
     fetchPrefectures()
       .then((data) => {
-        console.log(data);
+        dispatch({
+          type: prefecturesActionTypes.FETCH_SUCCESS,
+          payload: {
+            prefectures: data.prefectures,
+          },
+        });
       })
       .catch((e) => {
         console.error(e);
@@ -15,11 +33,15 @@ export const Prefectures = () => {
   return (
     <>
       <h1>都道府県別</h1>
-      <ul>
-        <li>
-          <Link to="/users/prefectures/14">神奈川県</Link>
-        </li>
-      </ul>
+      {state.fetchState === REQUEST_STATE.LOADING ? (
+        <p>LOADING...</p>
+      ) : (
+        <ul>
+          {state.prefectures.map((prefecture) => (
+            <li key={prefecture.id}>{prefecture.name}</li>
+          ))}
+        </ul>
+      )}
     </>
   );
 };
