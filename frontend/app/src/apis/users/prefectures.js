@@ -1,9 +1,20 @@
 import axios from "axios";
-import { prefectureUsersIndex } from "../../urls/index";
+import { prefectureUsersIndex, prefectureUsersShow } from "../../urls/index";
 
-export const fetchPrefectureUsers = (prefectureId) => {
+// index
+export const fetchPrefectureUsersIndex = () => {
   return axios
-    .get(prefectureUsersIndex(prefectureId))
+    .get(prefectureUsersIndex)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((e) => console.error(e));
+};
+
+// show
+export const fetchPrefectureUsersShow = (prefectureId) => {
+  return axios
+    .get(prefectureUsersShow(prefectureId))
     .then((res) => {
       return res.data;
     })

@@ -45,8 +45,11 @@ export const Users = () => {
               key={user.id}
               style={{ textDecoration: "none" }}
             >
-              <small>{user.full_name_kana}</small>
-              <p>{user.full_name}</p>
+              <div>
+                <small>{user.full_name_kana}</small>
+                <br />
+                {user.full_name}
+              </div>
             </Link>
           ))}
         </>

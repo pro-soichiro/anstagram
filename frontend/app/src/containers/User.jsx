@@ -55,7 +55,12 @@ export const User = () => {
             </tr>
             <tr>
               <th>所属部署</th>
-              <td>{state.user.departments}</td>
+              <td>
+                {state.user.departments &&
+                  state.user.departments.map((dep) => (
+                    <div key={dep}>{dep}</div>
+                  ))}
+              </td>
             </tr>
             <tr>
               <th>誕生日</th>

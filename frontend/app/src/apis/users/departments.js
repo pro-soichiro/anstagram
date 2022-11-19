@@ -1,9 +1,20 @@
 import axios from "axios";
-import { departmentUsersIndex } from "../../urls/index";
+import { departmentUsersIndex, departmentUsersShow } from "../../urls/index";
 
-export const fetchDepartmentUsers = (departmentId) => {
+// index
+export const fetchDepartmentUsersIndex = () => {
   return axios
-    .get(departmentUsersIndex(departmentId))
+    .get(departmentUsersIndex)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((e) => console.error(e));
+};
+
+// show
+export const fetchDepartmentUsersShow = (departmentId) => {
+  return axios
+    .get(departmentUsersShow(departmentId))
     .then((res) => {
       return res.data;
     })

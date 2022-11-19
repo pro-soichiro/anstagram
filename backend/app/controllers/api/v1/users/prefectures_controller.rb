@@ -35,9 +35,9 @@ module Api
             prefecture: {
               id: prefecture.id,
               name: prefecture.name,
-              total: users.size
+              total: users.size,
+              prefecture_users: prefecture_users,
             },
-            prefecture_users: prefecture_users
           }, status: :ok
         end
 

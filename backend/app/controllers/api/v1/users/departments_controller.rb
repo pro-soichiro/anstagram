@@ -35,9 +35,9 @@ module Api
             department: {
               id: department.id,
               name: department.name,
-              total: users.size
+              total: users.size,
+              department_users: department_users,
             },
-            department_users: department_users
           }, status: :ok
         end
 
