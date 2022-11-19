@@ -15,7 +15,6 @@ import { REQUEST_STATE } from "../constants";
 export const DepartmentUsersShow = () => {
   const { id } = useParams();
   const [state, dispatch] = useReducer(departmentsReducer, initialState);
-  console.log(state);
 
   useEffect(() => {
     dispatch({ type: departmentsActionTypes.FETCHING });
