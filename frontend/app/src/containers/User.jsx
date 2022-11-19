@@ -1,6 +1,18 @@
 import { useEffect, useReducer } from "react";
 import { useParams } from "react-router-dom";
 import { fetchUser } from "../apis/users";
+// chakra ui
+import {
+  Spinner,
+  Heading,
+  TableContainer,
+  Table,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Box,
+} from "@chakra-ui/react";
 
 // reducer
 import { initialState, userActionTypes, userReducer } from "../reducers/user";
@@ -27,79 +39,83 @@ export const User = () => {
       .catch((e) => {
         console.error(e);
       });
-  }, []);
+  }, [id]);
 
   return (
     <>
-      <h1>社員詳細</h1>
+      <Heading size="md" my={4}>
+        社員詳細
+      </Heading>
       {state.fetchState === REQUEST_STATE.LOADING ? (
-        <p>LOADING...</p>
+        <Spinner />
       ) : (
-        <table>
-          <tbody>
-            <tr>
-              <th>しめい</th>
-              <td>{state.user.full_name_kana}</td>
-            </tr>
-            <tr>
-              <th>氏名</th>
-              <td>{state.user.full_name}</td>
-            </tr>
-            <tr>
-              <th>ニックネーム</th>
-              <td>{state.user.nickname}</td>
-            </tr>
-            <tr>
-              <th>性別</th>
-              <td>{state.user.gender}</td>
-            </tr>
-            <tr>
-              <th>所属部署</th>
-              <td>
-                {state.user.departments &&
-                  state.user.departments.map((dep) => (
-                    <div key={dep}>{dep}</div>
-                  ))}
-              </td>
-            </tr>
-            <tr>
-              <th>誕生日</th>
-              <td>
-                {state.user.birthday} {state.user.age}歳
-              </td>
-            </tr>
-            <tr>
-              <th>入社日</th>
-              <td>{state.user.date_of_join}</td>
-            </tr>
-            <tr>
-              <th>出身地</th>
-              <td>
-                {state.user.birthplace_name} {state.user.birthplace_detail}
-              </td>
-            </tr>
-            <tr>
-              <th>趣味</th>
-              <td>{state.user.hobby}</td>
-            </tr>
-            <tr>
-              <th>特技</th>
-              <td>{state.user.skill}</td>
-            </tr>
-            <tr>
-              <th>座右の銘</th>
-              <td>{state.user.motto}</td>
-            </tr>
-            <tr>
-              <th>経歴</th>
-              <td>{state.user.career}</td>
-            </tr>
-            <tr>
-              <th>メモ</th>
-              <td>{state.user.memo}</td>
-            </tr>
-          </tbody>
-        </table>
+        <TableContainer>
+          <Table size="sm">
+            <Tbody>
+              <Tr>
+                <Th>しめい</Th>
+                <Td>{state.user.full_name_kana}</Td>
+              </Tr>
+              <Tr>
+                <Th>氏名</Th>
+                <Td>{state.user.full_name}</Td>
+              </Tr>
+              <Tr>
+                <Th>ニックネーム</Th>
+                <Td>{state.user.nickname}</Td>
+              </Tr>
+              <Tr>
+                <Th>性別</Th>
+                <Td>{state.user.gender}</Td>
+              </Tr>
+              <Tr>
+                <Th>所属部署</Th>
+                <Td>
+                  {state.user.departments &&
+                    state.user.departments.map((dep) => (
+                      <Box key={dep}>{dep}</Box>
+                    ))}
+                </Td>
+              </Tr>
+              <Tr>
+                <Th>誕生日</Th>
+                <Td>
+                  {state.user.birthday} {state.user.age}歳
+                </Td>
+              </Tr>
+              <Tr>
+                <Th>入社日</Th>
+                <Td>{state.user.date_of_join}</Td>
+              </Tr>
+              <Tr>
+                <Th>出身地</Th>
+                <Td>
+                  {state.user.birthplace_name} {state.user.birthplace_detail}
+                </Td>
+              </Tr>
+              <Tr>
+                <Th>趣味</Th>
+                <Td>{state.user.hobby}</Td>
+              </Tr>
+              <Tr>
+                <Th>特技</Th>
+                <Td>{state.user.skill}</Td>
+              </Tr>
+              <Tr>
+                <Th>座右の銘</Th>
+                <Td>{state.user.motto}</Td>
+              </Tr>
+              <Tr>
+                <Th>経歴</Th>
+                <Td>{state.user.career}</Td>
+              </Tr>
+              <Tr>
+                <Th>メモ</Th>
+                <Td>{state.user.memo}</Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </TableContainer>
       )}
     </>
   );

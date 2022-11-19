@@ -1,6 +1,19 @@
 import { useEffect, useReducer } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchPrefectureUsersShow } from "../apis/users/prefectures";
+// chakra ui
+import {
+  Spinner,
+  Heading,
+  TableContainer,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Button,
+} from "@chakra-ui/react";
 
 // reducers
 import {
@@ -35,26 +48,43 @@ export const PrefectureUsersShow = () => {
   return (
     <>
       {state.fetchState === REQUEST_STATE.LOADING ? (
-        <p>LOADING...</p>
+        <Spinner />
       ) : (
         <>
-          <h2>
+          <Heading size="md" my={4}>
             {state.prefecture.name}の社員一覧 / {state.prefecture.total}人
-          </h2>
-          {state.prefecture.prefecture_users &&
-            state.prefecture.prefecture_users.map((user) => (
-              <Link
-                key={user.id}
-                to={`/users/${user.id}`}
-                style={{ textDecoration: "none" }}
-              >
-                <div>
-                  <small>{user.full_name_kana}</small>
-                  <br />
-                  {user.full_name}
-                </div>
-              </Link>
-            ))}
+          </Heading>
+          <TableContainer>
+            <Table variant="striped" size="sm">
+              <Thead>
+                <Tr>
+                  <Th>氏名</Th>
+                  <Th>かな</Th>
+                  <Th isNumeric></Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {state.prefecture.prefecture_users &&
+                  state.prefecture.prefecture_users.map((user) => (
+                    <Tr key={user.id}>
+                      <Td>{user.full_name}</Td>
+                      <Td>{user.full_name_kana}</Td>
+                      <Td isNumeric>
+                        <Link to={`/users/${user.id}`}>
+                          <Button
+                            size="sm"
+                            colorScheme="teal"
+                            variant="outline"
+                          >
+                            詳細
+                          </Button>
+                        </Link>
+                      </Td>
+                    </Tr>
+                  ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
         </>
       )}
     </>

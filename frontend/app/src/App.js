@@ -10,44 +10,68 @@ import { User } from "./containers/User";
 import { Prefectures } from "./containers/Prefectures";
 import { Departments } from "./containers/Departments";
 
+// chakra ui
+import {
+  ChakraProvider,
+  Tabs,
+  TabList,
+  Tab,
+  Container,
+} from "@chakra-ui/react";
+
 function App() {
   return (
-    <BrowserRouter>
-      <ul>
-        <li>
-          <Link to="/users">社員一覧</Link>
-        </li>
-        <li>
-          <Link to="/users/prefectures">社員一覧/都道府県別</Link>
-        </li>
-        <li>
-          <Link to="/users/departments">社員一覧/部署別</Link>
-        </li>
-        <li>
-          <Link to="/prefectures">都道府県</Link>
-        </li>
-        <li>
-          <Link to="/departments">部署</Link>
-        </li>
-      </ul>
-      <Routes>
-        <Route path="/" element={<Top />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/users/:id" element={<User />} />
-        <Route path="/users/prefectures" element={<PrefectureUsersIndex />} />
-        <Route path="/users/departments" element={<DepartmentUsersIndex />} />
-        <Route
-          path="/users/prefectures/:id"
-          element={<PrefectureUsersShow />}
-        />
-        <Route
-          path="/users/departments/:id"
-          element={<DepartmentUsersShow />}
-        />
-        <Route path="/prefectures" element={<Prefectures />} />
-        <Route path="/departments" element={<Departments />} />
-      </Routes>
-    </BrowserRouter>
+    <ChakraProvider>
+      <BrowserRouter>
+        <Tabs>
+          <TabList>
+            <Link to="/">
+              <Tab>Top</Tab>
+            </Link>
+            <Link to="/users">
+              <Tab>社員一覧</Tab>
+            </Link>
+            <Link to="/users/prefectures">
+              <Tab>社員一覧/都道府県別</Tab>
+            </Link>
+            <Link to="/users/departments">
+              <Tab>社員一覧/部署別</Tab>
+            </Link>
+            <Link to="/prefectures">
+              <Tab>都道府県</Tab>
+            </Link>
+            <Link to="/departments">
+              <Tab>部署</Tab>
+            </Link>
+          </TabList>
+        </Tabs>
+        <Container>
+          <Routes>
+            <Route path="/" element={<Top />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/users/:id" element={<User />} />
+            <Route
+              path="/users/prefectures"
+              element={<PrefectureUsersIndex />}
+            />
+            <Route
+              path="/users/departments"
+              element={<DepartmentUsersIndex />}
+            />
+            <Route
+              path="/users/prefectures/:id"
+              element={<PrefectureUsersShow />}
+            />
+            <Route
+              path="/users/departments/:id"
+              element={<DepartmentUsersShow />}
+            />
+            <Route path="/prefectures" element={<Prefectures />} />
+            <Route path="/departments" element={<Departments />} />
+          </Routes>
+        </Container>
+      </BrowserRouter>
+    </ChakraProvider>
   );
 }
 

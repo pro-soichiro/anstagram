@@ -1,5 +1,17 @@
 import { useEffect, useReducer } from "react";
 import { fetchPrefectures } from "../apis/prefectures";
+// chakra ui
+import {
+  Skeleton,
+  Heading,
+  TableContainer,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+} from "@chakra-ui/react";
 
 // reducers
 import {
@@ -32,16 +44,35 @@ export const Prefectures = () => {
   }, []);
   return (
     <>
-      <h1>都道府県別</h1>
-      {state.fetchState === REQUEST_STATE.LOADING ? (
-        <p>LOADING...</p>
-      ) : (
-        <ul>
-          {state.prefectures.map((prefecture) => (
-            <li key={prefecture.id}>{prefecture.name}</li>
-          ))}
-        </ul>
-      )}
+      <Heading size="md" my={4}>
+        都道府県別
+      </Heading>
+      <TableContainer>
+        <Table variant="simple" size="sm">
+          <Thead>
+            <Tr>
+              <Th>都道府県名</Th>
+            </Tr>
+          </Thead>
+          {state.fetchState === REQUEST_STATE.LOADING ? (
+            <Tbody>
+              <Tr>
+                <Td>
+                  <Skeleton height="20px" />
+                </Td>
+              </Tr>
+            </Tbody>
+          ) : (
+            <Tbody>
+              {state.prefectures.map((prefecture) => (
+                <Tr key={prefecture.id}>
+                  <Td>{prefecture.name}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          )}
+        </Table>
+      </TableContainer>
     </>
   );
 };

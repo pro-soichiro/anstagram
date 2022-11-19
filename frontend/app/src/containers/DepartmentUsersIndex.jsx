@@ -1,6 +1,19 @@
 import { useEffect, useReducer } from "react";
 import { Link } from "react-router-dom";
 import { fetchDepartmentUsersIndex } from "../apis/users/departments";
+// chakra ui
+import {
+  Skeleton,
+  Heading,
+  TableContainer,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Button,
+} from "@chakra-ui/react";
 
 // reducer
 import {
@@ -33,24 +46,49 @@ export const DepartmentUsersIndex = () => {
   }, []);
   return (
     <>
-      <h1>社員一覧/部門別</h1>
-      {state.fetchState === REQUEST_STATE.LOADING ? (
-        <p>LOADING...</p>
-      ) : (
-        <>
-          {state.departments.map((department) => (
-            <Link
-              key={department.id}
-              to={`/users/departments/${department.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <div>
-                {department.name} : {department.total}人
-              </div>
-            </Link>
-          ))}
-        </>
-      )}
+      <Heading size="md" my={4}>社員一覧/部署別</Heading>
+      <TableContainer>
+        <Table variant="striped" size="sm">
+          <Thead>
+            <Tr>
+              <Th>氏名</Th>
+              <Th isNumeric>所属人数</Th>
+              <Th isNumeric></Th>
+            </Tr>
+          </Thead>
+          {state.fetchState === REQUEST_STATE.LOADING ? (
+            <Tbody>
+              <Tr>
+                <Td>
+                  <Skeleton height="20px" />
+                </Td>
+                <Td>
+                  <Skeleton height="20px" />
+                </Td>
+                <Td>
+                  <Skeleton height="20px" />
+                </Td>
+              </Tr>
+            </Tbody>
+          ) : (
+            <Tbody>
+              {state.departments.map((department) => (
+                <Tr key={department.id}>
+                  <Td>{department.name}</Td>
+                  <Td isNumeric>{department.total}人</Td>
+                  <Td isNumeric>
+                    <Link to={`/users/departments/${department.id}`}>
+                      <Button size="sm" colorScheme="teal" variant="outline">
+                        詳細
+                      </Button>
+                    </Link>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          )}
+        </Table>
+      </TableContainer>
     </>
   );
 };
