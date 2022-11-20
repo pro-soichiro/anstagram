@@ -18,3 +18,7 @@ export const departmentUsersShow = (departmentId) =>
 // カテゴリ一覧
 export const prefecturesIndex = `${DEFAULT_API_LOCALHOST}/prefectures`;
 export const departmentsIndex = `${DEFAULT_API_LOCALHOST}/departments`;
+
+// カテゴリID
+export const departmentsShow = (departmentId) =>
+  `${DEFAULT_API_LOCALHOST}/departments/${departmentId}`;

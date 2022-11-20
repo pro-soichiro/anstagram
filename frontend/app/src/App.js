@@ -9,6 +9,7 @@ import { DepartmentUsersIndex } from "./containers/DepartmentUsersIndex";
 import { User } from "./containers/User";
 import { Prefectures } from "./containers/Prefectures";
 import { Departments } from "./containers/Departments";
+import { DepartmentEdit } from "./containers/DepartmentEdit";
 
 // chakra ui
 import {
@@ -45,7 +46,7 @@ function App() {
             </Link>
           </TabList>
         </Tabs>
-        <Container>
+        <Container mb={14}>
           <Routes>
             <Route path="/" element={<Top />} />
             <Route path="/users" element={<Users />} />
@@ -68,6 +69,10 @@ function App() {
             />
             <Route path="/prefectures" element={<Prefectures />} />
             <Route path="/departments" element={<Departments />} />
+            <Route
+              path="/departments/:id"
+              element={<DepartmentEdit />}
+            />
           </Routes>
         </Container>
       </BrowserRouter>
